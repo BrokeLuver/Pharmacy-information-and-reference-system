@@ -1,0 +1,55 @@
+package ru.store.pharmacy.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+public class MedicineHistory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "medicine_id", nullable = true) // Разрешаем NULL
+    private Medicines medicine;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") // Формат ISO 8601
+    private LocalDateTime changeTimestamp;
+    @Enumerated(EnumType.STRING)
+    private ChangeType changeType;
+
+    // Геттеры и сеттеры
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Medicines getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicines medicine) {
+        this.medicine = medicine;
+    }
+
+    public LocalDateTime getChangeTimestamp() {
+        return changeTimestamp;
+    }
+
+    public void setChangeTimestamp(LocalDateTime changeTimestamp) {
+        this.changeTimestamp = changeTimestamp;
+    }
+
+    public ChangeType getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(ChangeType changeType) {
+        this.changeType = changeType;
+    }
+
+    public enum ChangeType {ADDED, DELETED, UPDATED}
+}

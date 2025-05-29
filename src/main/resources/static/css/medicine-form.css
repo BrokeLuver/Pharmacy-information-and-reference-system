@@ -1,0 +1,49 @@
+.page-title {
+    font-size: 2.5rem;
+    color: #1A365D;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.medicine-form .form-control {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.medicine-form .form-control:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    border-color: #3B82F6;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #1A365D;
+    margin-bottom: 0.5rem;
+}
+
+.btn-submit {
+    background: #3B82F6;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.btn-cancel {
+    background: #f8f9fa;
+    color: #1A365D;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    text-align: center;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+}

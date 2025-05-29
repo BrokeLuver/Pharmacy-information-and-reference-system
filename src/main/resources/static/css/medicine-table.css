@@ -1,0 +1,71 @@
+.medicine-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.medicine-table th,
+.medicine-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.medicine-table th {
+    background-color: #3B82F6;
+    color: white;
+    font-weight: 600;
+}
+
+.medicine-table tr:nth-child(even) {
+    background-color: rgba(243, 244, 246, 0.5);
+}
+
+.medicine-table tr:hover {
+    background-color: rgba(219, 234, 254, 0.5);
+}
+
+.sort-link {
+    color: white !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    position: relative;
+    padding-right: 20px !important;
+    display: inline-block;
+}
+
+.sort-link:hover {
+    opacity: 0.8;
+}
+
+.sort-link span {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8em;
+}
+
+.alert-info {
+    background-color: #e3f2fd;
+    border-color: #bbdefb;
+    color: #1976d2;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #1A365D;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.status-message {
+    text-align: center;
+    padding: 2rem;
+    color: #4a5568;
+    font-size: 1.2rem;
+}

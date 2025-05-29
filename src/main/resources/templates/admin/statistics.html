@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>PharmaCare - Статистика</title>
+
+    <!-- Подключение стилей -->
+    <link rel="icon" href="/pics/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/charts.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/decorative.css}">
+
+    <!-- Подключение Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #4a7df5, #3BC9DB, #6C8EFB, #40DFEF);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        /*.content-wrapper {*/
+        /*    background: rgba(255, 255, 255, 0.95);*/
+        /*    border-radius: 24px;*/
+        /*    padding: 2rem;*/
+        /*    margin: 20px auto;*/
+        /*    max-width: 1200px;*/
+        /*    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);*/
+        /*    position: relative;*/
+        /*}*/
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+            margin: 120px auto 2rem; /* Единый отступ сверху */
+            max-width: 1200px;
+            width: 95%;
+            min-height: 60vh; /* Минимальная высота для выравнивания */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Равномерное распределение контента */
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+
+            .content-wrapper {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(10vw, -5vh) scale(1.1);
+            }
+            50% {
+                transform: translate(-5vw, 8vh) scale(0.9);
+            }
+            75% {
+                transform: translate(-8vw, -3vh) scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="decorations-container">
+    <div class="decorative-circle circle-1"></div>
+    <div class="decorative-circle circle-2"></div>
+    <div class="decorative-circle circle-3"></div>
+</div>
+
+<nav th:replace="~{fragments/admin-nav :: admin-nav}"></nav>
+
+<div class="content-wrapper">
+    <h1 class="page-title">📊 Аналитика системы</h1>
+
+    <div class="controls">
+        <button class="refresh-btn" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i> Обновить данные
+        </button>
+    </div>
+
+    <div class="chart-card">
+        <h3 class="mb-4">💊 Динамика препаратов</h3>
+        <canvas height="200" id="medicinesChart" width="400"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3 class="mb-4">👥 Динамика пользователей</h3>
+        <canvas height="200" id="usersChart" width="400"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/navbar-collapse.js}"></script>
+<script th:src="@{/js/charts.js}"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>PharmaCare - Об авторе</title>
+    <link rel="icon" href="/pics/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/author.css}">
+    <link rel="stylesheet" th:href="@{/css/decorative.css}">
+    <style>
+        /*Общие стили из других страниц*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #4a7df5, #3BC9DB, #6C8EFB, #40DFEF);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+            margin: 100px auto 2rem;
+            max-width: 1200px;
+            width: 95%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .author-card {
+                grid-template-columns: 1fr;
+            }
+
+            .author-photo {
+                margin: 0 auto;
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(10vw, -5vh) scale(1.1);
+            }
+            50% {
+                transform: translate(-5vw, 8vh) scale(0.9);
+            }
+            75% {
+                transform: translate(-8vw, -3vh) scale(1.05);
+            }
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="~{fragments/admin-nav :: admin-nav}"></nav>
+
+<div class="decorations-container">
+    <div class="decorative-circle circle-1"></div>
+    <div class="decorative-circle circle-2"></div>
+    <div class="decorative-circle circle-3"></div>
+</div>
+
+<div class="content-wrapper">
+    <h1 class="page-title">Об авторе</h1>
+
+    <div class="author-card">
+        <div class="author-photo" style="background-image: url('/pics/author.jpg')"></div>
+
+        <div class="author-info">
+            <h2>Верещако Дмитрий Владимирович</h2>
+            <p class="text-muted">Студент группы ТРПО23-4<br>
+                Финансовый университет при Правительстве РФ</p>
+
+            <h3 class="section-title">Контактная информация</h3>
+            <ul class="contact-list">
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    Email: <a href="mailto:luverbigboy@gmail.com">luverbigboy@gmail.com</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    Телефон: +7 (985) 715-40-35
+                </li>
+                <li>
+                    <i class="fab fa-github"></i>
+                    GitHub: <a href="https://github.com/BrokeLuver">github.com/BrokeLuver</a>
+                </li>
+            </ul>
+
+            <h3 class="section-title">Технологический стек проекта</h3>
+            <div class="tech-stack">
+                <div class="tech-item">Java 23</div>
+                <div class="tech-item">Spring Boot</div>
+                <div class="tech-item">Hibernate</div>
+                <div class="tech-item">Thymeleaf</div>
+                <div class="tech-item">Bootstrap 5</div>
+                <div class="tech-item">PostgreSQL</div>
+            </div>
+
+            <h3 class="section-title">Сроки разработки</h3>
+            <div class="project-dates">
+                <div>
+                    <strong>Начало:</strong><br>
+                    18 марта 2025
+                </div>
+                <div>
+                    <strong>Завершение:</strong><br>
+                    25 мая 2025
+                </div>
+            </div>
+
+            <h3 class="section-title">Опыт работы</h3>
+            <p>Разработал полнофункциональное веб-приложение для управления аптекой с использованием следующих
+                технологий:</p>
+            <ul>
+                <li>Реализация авторизации и аутентификации</li>
+                <li>CRUD-операции для сущностей</li>
+                <li>Адаптивный интерфейс</li>
+                <li>Сортировка и фильтрация данных</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/navbar-collapse.js}"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .navbar {
+            background: #2563eb !important;
+            backdrop-filter: blur(4px);
+            padding: 0.8rem 1rem;
+            border-radius: 0 0 18px 18px;
+            overflow: hidden;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8) !important;
+            letter-spacing: 1px;
+            margin-right: 2rem;
+            position: relative;
+            padding: 0.2rem 0;
+        }
+
+        .brand-accent {
+            color: #fff !important;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .brand-accent::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem !important;
+        }
+
+        .nav-link:hover {
+            color: #3B82F6 !important;
+            transform: translateY(-1px);
+        }
+
+        .search-form {
+            min-width: 400px;
+            flex-grow: 1;
+            max-width: 600px;
+            margin-right: 1rem;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            width: 100%;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.2) !important;
+            box-shadow: none !important;
+            border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark" th:fragment="admin-nav">
+    <div class="container">
+        <a class="navbar-brand" href="/main">
+            <span class="brand-accent">Pharma</span>Care
+        </a>
+        <button class="navbar-toggler" data-bs-target="#navbarNav"
+                data-bs-toggle="collapse"
+                type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <div class="d-flex" sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/medicines}">Препараты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/users}">Пользователи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/statistics}">Статистика</a>
+                    </li>
+                </div>
+            </ul>
+            <form class="d-flex search-form" method="get" th:action="@{${currentUri}}">
+                <input class="form-control me-2 search-input"
+                       name="searchQuery"
+                       placeholder="Поиск по названию или категории"
+                       th:value="${searchQuery}"
+                       type="search">
+                <input name="sortBy" th:value="${sortBy}" type="hidden">
+                <input name="direction" th:value="${direction}" type="hidden">
+                <button class="btn btn-outline-light search-btn" type="submit">
+                    Поиск
+                </button>
+            </form>
+
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <form method="post" th:action="@{/logout}">
+                        <button class="nav-link" type="submit">Выйти</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about_author}">Об авторе</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

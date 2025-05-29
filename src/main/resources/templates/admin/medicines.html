@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>PharmaCare - Управление препаратами</title>
+    <link rel="icon" href="/pics/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/medicine-table.css}">
+    <link rel="stylesheet" th:href="@{/css/medicine-buttons.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/decorative.css}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #4a7df5, #3BC9DB, #6C8EFB, #40DFEF);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /*.main-content {*/
+        /*    padding: 20px;*/
+        /*    transition: margin-top 0.25s ease-out;*/
+        /*}*/
+
+        /*.content-wrapper {*/
+        /*    background: rgba(255, 255, 255, 0.92);*/
+        /*    border-radius: 24px;*/
+        /*    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);*/
+        /*    backdrop-filter: blur(15px);*/
+        /*    padding: 2rem;*/
+        /*    margin: 1rem auto;*/
+        /*    max-width: 1200px;*/
+        /*}*/
+
+        .content-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 2rem;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 80px;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .medicine-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="~{fragments/admin-nav :: admin-nav}"></nav>
+
+<div class="main-content">
+    <div class="content-wrapper">
+        <h1 class="mb-4">Управление препаратами</h1>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a class="btn btn-primary"
+               th:href="@{/admin/medicines/new(searchQuery=${searchQuery}, sortBy=${sortBy}, direction=${direction})}">
+                + Добавить препарат
+            </a>
+        </div>
+
+        <div class="alert alert-info mb-4"
+             th:if="${searchQuery != null and !searchQuery.isEmpty()}">
+            Результаты поиска для: "<span th:text="${searchQuery}"></span>"
+        </div>
+
+        <table class="medicine-table" th:if="${medicines != null and !medicines.isEmpty()}">
+            <thead>
+            <tr>
+                <th>
+                    <a class="sort-link"
+                       th:href="@{/admin/medicines(searchQuery=${searchQuery}, sortBy='id', direction=${direction == 'asc' && sortBy == 'id' ? 'desc' : 'asc'})}">
+                        ID
+                        <span th:if="${sortBy == 'id'}">[[${direction == 'asc' ? '▲' : '▼'}]]</span>
+                    </a>
+                </th>
+                <th>
+                    <a class="sort-link"
+                       th:href="@{/admin/medicines(searchQuery=${searchQuery}, sortBy='name', direction=${direction == 'asc' && sortBy == 'name' ? 'desc' : 'asc'})}">
+                        Название
+                        <span th:if="${sortBy == 'name'}">[[${direction == 'asc' ? '▲' : '▼'}]]</span>
+                    </a>
+                </th>
+                <th>Описание</th>
+                <th>
+                    <a class="sort-link"
+                       th:href="@{/admin/medicines(searchQuery=${searchQuery}, sortBy='category', direction=${direction == 'asc' && sortBy == 'category' ? 'desc' : 'asc'})}">
+                        Категория
+                        <span th:if="${sortBy == 'category'}">[[${direction == 'asc' ? '▲' : '▼'}]]</span>
+                    </a>
+                </th>
+                <th>
+                    <a class="sort-link"
+                       th:href="@{/admin/medicines(searchQuery=${searchQuery}, sortBy='form', direction=${direction == 'asc' && sortBy == 'form' ? 'desc' : 'asc'})}">
+                        Форма выпуска
+                        <span th:if="${sortBy == 'form'}">[[${direction == 'asc' ? '▲' : '▼'}]]</span>
+                    </a>
+                </th>
+                <th>
+                    <a class="sort-link"
+                       th:href="@{/admin/medicines(searchQuery=${searchQuery}, sortBy='weight', direction=${direction == 'asc' && sortBy == 'weight' ? 'desc' : 'asc'})}">
+                        Вес (г)
+                        <span th:if="${sortBy == 'weight'}">[[${direction == 'asc' ? '▲' : '▼'}]]</span>
+                    </a>
+                </th>
+                <th>
+                    <a class="sort-link"
+                       th:href="@{/admin/medicines(searchQuery=${searchQuery}, sortBy='price', direction=${direction == 'asc' && sortBy == 'price' ? 'desc' : 'asc'})}">
+                        Цена (₽)
+                        <span th:if="${sortBy == 'price'}">[[${direction == 'asc' ? '▲' : '▼'}]]</span>
+                    </a>
+                </th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medicine : ${medicines}">
+                <td th:text="${medicine.id}"></td>
+                <td th:text="${medicine.name}"></td>
+                <td th:text="${medicine.description} ?: 'Нет описания'"></td>
+                <td th:text="${medicine.category}"></td>
+                <td th:text="${medicine.form}"></td>
+                <td th:text="${medicine.weight} + ' г'"></td>
+                <td th:text="${medicine.price} + ' ₽'"></td>
+                <td>
+                    <div class="action-buttons">
+                        <a class="btn btn-edit"
+                           th:href="@{/admin/medicines/edit/{id}(id=${medicine.id}, searchQuery=${searchQuery}, sortBy=${sortBy}, direction=${direction})}">✎</a>
+                        <form class="d-inline"
+                              method="post"
+                              th:action="@{/admin/medicines/delete/{id}(id=${medicine.id}, searchQuery=${searchQuery}, sortBy=${sortBy}, direction=${direction})}">
+                            <button class="btn btn-delete" type="submit">🗑</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="alert alert-info" th:if="${medicines == null or medicines.isEmpty()}">
+            Нет доступных препаратов
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/navbar-collapse.js}"></script>
+</body>
+</html>

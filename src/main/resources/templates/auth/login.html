@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>PharmaCare - Авторизация</title>
+    <link rel="icon" href="/pics/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/auth-form.css}">
+    <link rel="stylesheet" th:href="@{/css/decorative.css}">
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #4a7df5, #3BC9DB, #6C8EFB, #40DFEF);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+            margin: 20px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Анимации */
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(100px, -50px) scale(1.1);
+            }
+            50% {
+                transform: translate(-50px, 80px) scale(0.9);
+            }
+            75% {
+                transform: translate(-80px, -30px) scale(1.05);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-title {
+                font-size: 1.8rem;
+            }
+
+            .content-wrapper {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="decorative-circle circle-1"></div>
+<div class="decorative-circle circle-2"></div>
+<div class="decorative-circle circle-3"></div>
+
+<main class="content-wrapper">
+    <h1 class="form-title">Вход в аккаунт</h1>
+
+    <!-- Сообщения -->
+    <div class="status-message" style="color: #dc2626;" th:if="${error}" th:text="${error}"></div>
+    <div class="status-message" style="color: #16a34a;" th:if="${registered}" th:text="${registered}"></div>
+
+    <form class="auth-form" method="post" th:action="@{/login}">
+        <div class="input-group">
+            <label class="form-label" for="username">Имя пользователя</label>
+            <input
+                    class="form-input"
+                    id="username"
+                    name="username"
+                    placeholder="Введите ваш логин"
+                    required
+                    type="text"
+            >
+        </div>
+
+        <div class="input-group">
+            <label class="form-label" for="password">Пароль</label>
+            <input
+                    class="form-input"
+                    id="password"
+                    name="password"
+                    placeholder="Введите ваш пароль"
+                    required
+                    type="password"
+            >
+        </div>
+
+        <button class="submit-btn" type="submit">Войти →</button>
+    </form>
+
+    <p class="register-link">
+        Ещё нет аккаунта? <a th:href="@{/register}">Зарегистрируйтесь</a>
+    </p>
+</main>
+</body>
+</html>
